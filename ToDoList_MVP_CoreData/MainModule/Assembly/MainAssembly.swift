@@ -8,12 +8,13 @@
 import Foundation
 import UIKit
 
-class MainAssembly {
+final class MainAssembly {
     
     class func configureModule() -> UIViewController {
         let view = MainViewController()
-        let presenter = MainViewPresenter()
-        view.output = presenter
+        let presenter = MainViewPresenter(view: view)
+        view.presenter = presenter
+        view.detailVC = DetailViewController()
         presenter.view = view
         return view
     }

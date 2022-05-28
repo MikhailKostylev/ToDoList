@@ -20,13 +20,10 @@
 		1F5C48852841209800C024E0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5C48812841209800C024E0 /* MainViewController.swift */; };
 		1F5C488A2841236100C024E0 /* MainItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5C48882841236100C024E0 /* MainItem+CoreDataClass.swift */; };
 		1F5C488B2841236100C024E0 /* MainItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5C48892841236100C024E0 /* MainItem+CoreDataProperties.swift */; };
-		1F5C489228412C7100C024E0 /* UITableView+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5C489128412C7100C024E0 /* UITableView+extensions.swift */; };
 		1F5C48942841337300C024E0 /* Date+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5C48932841337300C024E0 /* Date+extensions.swift */; };
-		1F5C48962841372800C024E0 /* UIView+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5C48952841372800C024E0 /* UIView+extensions.swift */; };
 		1F5C4898284138F200C024E0 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5C4897284138F200C024E0 /* MainTableViewCell.swift */; };
-		1F5C48A328414C4E00C024E0 /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5C489F28414C4E00C024E0 /* DetailPresenter.swift */; };
 		1F5C48A428414C4E00C024E0 /* DetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5C48A028414C4E00C024E0 /* DetailController.swift */; };
-		1F5C48A528414C4E00C024E0 /* DetailAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5C48A128414C4E00C024E0 /* DetailAssembly.swift */; };
+		1FAD350028429929004363EA /* UITableView+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAD34FF28429929004363EA /* UITableView+extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,13 +61,10 @@
 		1F5C48812841209800C024E0 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		1F5C48882841236100C024E0 /* MainItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainItem+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1F5C48892841236100C024E0 /* MainItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		1F5C489128412C7100C024E0 /* UITableView+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+extensions.swift"; sourceTree = "<group>"; };
 		1F5C48932841337300C024E0 /* Date+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+extensions.swift"; sourceTree = "<group>"; };
-		1F5C48952841372800C024E0 /* UIView+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+extensions.swift"; sourceTree = "<group>"; };
 		1F5C4897284138F200C024E0 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
-		1F5C489F28414C4E00C024E0 /* DetailPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
 		1F5C48A028414C4E00C024E0 /* DetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailController.swift; sourceTree = "<group>"; };
-		1F5C48A128414C4E00C024E0 /* DetailAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailAssembly.swift; sourceTree = "<group>"; };
+		1FAD34FF28429929004363EA /* UITableView+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +119,6 @@
 				1F5C483928411B2F00C024E0 /* Info.plist */,
 				1F5C485C28411BEA00C024E0 /* App */,
 				1F5C485D28411E9200C024E0 /* MainModule */,
-				1F5C489D28414C4E00C024E0 /* DetailModule */,
 				1F5C488E28412BB000C024E0 /* Extensions */,
 				1F5C485B28411B4300C024E0 /* Sources */,
 			);
@@ -181,8 +174,8 @@
 		1F5C485E28411EC900C024E0 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1F5C48812841209800C024E0 /* MainViewController.swift */,
-				1F5C4897284138F200C024E0 /* MainTableViewCell.swift */,
+				1FAD35022842A3EC004363EA /* Controllers */,
+				1FAD35032842A3F5004363EA /* Cells */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -223,46 +216,27 @@
 		1F5C488E28412BB000C024E0 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				1F5C489128412C7100C024E0 /* UITableView+extensions.swift */,
-				1F5C48952841372800C024E0 /* UIView+extensions.swift */,
 				1F5C48932841337300C024E0 /* Date+extensions.swift */,
+				1FAD34FF28429929004363EA /* UITableView+extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		1F5C489D28414C4E00C024E0 /* DetailModule */ = {
+		1FAD35022842A3EC004363EA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1F6F14662841595500AF2723 /* Assembly */,
-				1F6F14642841593600AF2723 /* View */,
-				1F6F14652841594100AF2723 /* Presenter */,
-			);
-			name = DetailModule;
-			path = DetailModule/DetailModule;
-			sourceTree = "<group>";
-		};
-		1F6F14642841593600AF2723 /* View */ = {
-			isa = PBXGroup;
-			children = (
+				1F5C48812841209800C024E0 /* MainViewController.swift */,
 				1F5C48A028414C4E00C024E0 /* DetailController.swift */,
 			);
-			path = View;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
-		1F6F14652841594100AF2723 /* Presenter */ = {
+		1FAD35032842A3F5004363EA /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				1F5C489F28414C4E00C024E0 /* DetailPresenter.swift */,
+				1F5C4897284138F200C024E0 /* MainTableViewCell.swift */,
 			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		1F6F14662841595500AF2723 /* Assembly */ = {
-			isa = PBXGroup;
-			children = (
-				1F5C48A128414C4E00C024E0 /* DetailAssembly.swift */,
-			);
-			path = Assembly;
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -395,18 +369,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F5C48962841372800C024E0 /* UIView+extensions.swift in Sources */,
 				1F5C483328411B2E00C024E0 /* ToDoList_MVP_CoreData.xcdatamodeld in Sources */,
-				1F5C48A528414C4E00C024E0 /* DetailAssembly.swift in Sources */,
 				1F5C488B2841236100C024E0 /* MainItem+CoreDataProperties.swift in Sources */,
 				1F5C48842841209800C024E0 /* MainAssembly.swift in Sources */,
 				1F5C482928411B2E00C024E0 /* AppDelegate.swift in Sources */,
-				1F5C48A328414C4E00C024E0 /* DetailPresenter.swift in Sources */,
 				1F5C48832841209800C024E0 /* MainPresenter.swift in Sources */,
 				1F5C48942841337300C024E0 /* Date+extensions.swift in Sources */,
 				1F5C482B28411B2E00C024E0 /* SceneDelegate.swift in Sources */,
+				1FAD350028429929004363EA /* UITableView+extensions.swift in Sources */,
 				1F5C48852841209800C024E0 /* MainViewController.swift in Sources */,
-				1F5C489228412C7100C024E0 /* UITableView+extensions.swift in Sources */,
 				1F5C4898284138F200C024E0 /* MainTableViewCell.swift in Sources */,
 				1F5C48A428414C4E00C024E0 /* DetailController.swift in Sources */,
 				1F5C488A2841236100C024E0 /* MainItem+CoreDataClass.swift in Sources */,

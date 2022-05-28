@@ -2,15 +2,14 @@
 //  UITableView+extensions.swift
 //  ToDoList_MVP_CoreData
 //
-//  Created by Mikhail Kostylev on 27.05.2022.
+//  Created by Mikhail Kostylev on 28.05.2022.
 //
 
 import UIKit
 
-
 extension UITableView {
     
-    //MARK: - Animation
+    // Animation
     
     func animateTableView() {
         let cells = self.visibleCells
@@ -22,7 +21,7 @@ extension UITableView {
             cell.transform = CGAffineTransform(translationX: 0, y: tableViewHight)
             
             UIView.animate(
-                withDuration: 1.5,
+                withDuration: 1,
                 delay: delay * 0.05,
                 usingSpringWithDamping: 0.8,
                 initialSpringVelocity: 0,

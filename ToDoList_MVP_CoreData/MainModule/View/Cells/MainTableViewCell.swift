@@ -7,8 +7,8 @@
 
 import UIKit
 
-class MainTableViewCell: UITableViewCell {
-
+final class MainTableViewCell: UITableViewCell {
+    
     static let identifier = "MainTableViewCell"
     
     //MARK: - UI elements
@@ -19,6 +19,7 @@ class MainTableViewCell: UITableViewCell {
         label.textColor = .label
         label.textAlignment = .left
         label.font = .systemFont(ofSize: 20, weight: .regular)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -28,30 +29,31 @@ class MainTableViewCell: UITableViewCell {
         label.textColor = .tertiaryLabel
         label.textAlignment = .right
         label.font = .systemFont(ofSize: 16, weight: .medium)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    private let padding: CGFloat = 10
     
     //MARK: - Initializer
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        selectionStyle = .none
-        contentView.backgroundColor = .secondarySystemBackground
-        contentView.addSubview(nameLabel)
-        contentView.addSubview(dateLabel)
+        setupCell()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Layout
-    
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        let padding: CGFloat = 10
+        setupCellLayout()
+    }
+    
+    //MARK: - Setups
+    
+    private func setupCellLayout() {
         contentView.layer.cornerRadius = 10
         contentView.frame = contentView.frame.inset(
             by: UIEdgeInsets(
@@ -61,20 +63,25 @@ class MainTableViewCell: UITableViewCell {
                 right: padding
             )
         )
+    }
+    
+    private func setupCell() {
+        selectionStyle = .none
+        contentView.backgroundColor = .secondarySystemBackground
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(dateLabel)
         
-        nameLabel.frame = CGRect(
-            x: padding,
-            y: 0,
-            width: contentView.width-(padding*2),
-            height: contentView.height/1.4
-        )
-        
-        dateLabel.frame = CGRect(
-            x: padding,
-            y: nameLabel.bottom,
-            width: contentView.width-(padding*2),
-            height: contentView.height/4
-        )
+        NSLayoutConstraint.activate([
+            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            nameLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.75),
+
+            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            dateLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
+            dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
     }
     
     //MARK: - Configure
@@ -83,5 +90,4 @@ class MainTableViewCell: UITableViewCell {
         nameLabel.text = model.taskName
         dateLabel.text = "Created at: \(model.createdAt?.toString() ?? "")"
     }
-
 }

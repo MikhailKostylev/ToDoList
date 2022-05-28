@@ -22,8 +22,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func setupWindow(scene: UIScene) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
+        let mainVC = MainAssembly.configureModule()
+        let navController = UINavigationController(rootViewController: mainVC)
+        
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = UINavigationController(rootViewController: MainViewController())
+        window?.rootViewController = navController
         window?.backgroundColor = .systemBackground
         window?.makeKeyAndVisible()
     }
