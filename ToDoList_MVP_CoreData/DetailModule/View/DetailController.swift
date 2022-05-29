@@ -44,6 +44,7 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
         super.viewDidLoad()
         setupLabels()
         setupCloseButton()
+        presenter?.setupLabels()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,6 +91,7 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
     // MARK: - Configure
 
     public func configure(with item: MainItem) {
-        presenter?.setupLabels(with: item)
+        nameLabel.text = item.taskName
+        dateLabel.text = item.createdAt?.toString()
     }
 }
