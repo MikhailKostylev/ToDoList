@@ -10,6 +10,4 @@ import Foundation
 import CoreData
 
 @objc(MainItem)
-public class MainItem: NSManagedObject {
-
-}
+public class MainItem: NSManagedObject {}

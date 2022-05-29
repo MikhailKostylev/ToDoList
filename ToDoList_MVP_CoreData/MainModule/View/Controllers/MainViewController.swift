@@ -14,45 +14,45 @@ protocol MainPresenterInput: AnyObject {
 }
 
 final class MainViewController: UIViewController, MainPresenterInput {
-    
+
     var presenter: MainPresenterOutput?
     var detailVC: DetailViewControllerProtocol?
-    
+
     private let tableView: UITableView = {
         let table = UITableView()
         return table
     }()
-    
-    //MARK: - Lifecycle
-    
+
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupVC()
         setupTableView()
         setupBarButton()
         setupRefreshControl()
         presenter?.getAllItems()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tableView.isHidden = false
         tableView.animateTableView()
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         tableView.isHidden = true
     }
-    
-    //MARK: - Setups
-    
+
+    // MARK: - Setups
+
     private func setupVC() {
         title = "To Do List"
         view.backgroundColor = .systemBackground
@@ -60,7 +60,7 @@ final class MainViewController: UIViewController, MainPresenterInput {
         navigationController?.navigationBar.tintColor = .label
         navigationController?.navigationBar.prefersLargeTitles = true
     }
-    
+
     private func setupTableView() {
         view.addSubview(tableView)
         tableView.delegate = self
@@ -72,7 +72,7 @@ final class MainViewController: UIViewController, MainPresenterInput {
         tableView.separatorStyle = .none
         tableView.rowHeight = 100
     }
-    
+
     private func setupBarButton() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
@@ -80,7 +80,7 @@ final class MainViewController: UIViewController, MainPresenterInput {
             action: #selector(didTapAddButton)
         )
     }
-    
+
     private func setupRefreshControl() {
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(
@@ -89,27 +89,27 @@ final class MainViewController: UIViewController, MainPresenterInput {
             for: .valueChanged
         )
     }
-    
-    //MARK: - Actions
-    
+
+    // MARK: - Actions
+
     @objc private func didTapAddButton() {
         presenter?.showCreateItemAlert()
     }
-    
+
     @objc private func didPullToRefresh() {
         presenter?.getAllItems()
     }
-    
+
     func showDetailVC(item: MainItem) {
-        guard let vc = detailVC else { return }
-        vc.configure(with: item)
-        present(vc as! UIViewController, animated: true)
+        guard let detailVC = detailVC else { return }
+        detailVC.configure(with: item)
+        present(detailVC as! UIViewController, animated: true)
     }
-    
+
     func presentAlert(alert: UIAlertController) {
         present(alert, animated: true)
     }
-    
+
     func refreshTable() {
         DispatchQueue.main.async { [weak self] in
             self?.tableView.reloadData()
@@ -119,70 +119,69 @@ final class MainViewController: UIViewController, MainPresenterInput {
     }
 }
 
-//MARK: - Table Methods
+// MARK: - Table Methods
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
-    
+
     // Default
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return presenter?.items?.count ?? 0
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell( withIdentifier: MainTableViewCell.identifier, for: indexPath) as? MainTableViewCell else { return UITableViewCell() }
         guard let model = presenter?.items?[indexPath.section] else { return UITableViewCell() }
         cell.configure(with: model)
         return cell
     }
-    
-    // Index Title
-    
+
+    // Index Titles
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return presenter?.items?[section].taskName?.prefix(1).capitalized
     }
-    
+
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         return presenter?.items?.compactMap({ $0.taskName?.prefix(1).capitalized })
     }
-    
+
     // Selection
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let item = presenter?.items?[indexPath.section] else { return }
         presenter?.showDetailAllert(item: item)
     }
-    
+
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard let item = presenter?.items?[indexPath.row] else { return UIContextMenuConfiguration() }
         let config = UIContextMenuConfiguration(
             identifier: nil,
             previewProvider: nil) { [weak self] _ in
-                
+
                 let showAction = UIAction(title: "Show Full", subtitle: nil, image: nil, identifier: nil, discoverabilityTitle: nil, state: .off) { _ in
-                    
+
                     self?.showDetailVC(item: item)
                 }
-                
+
                 let editAction = UIAction(title: "Edit", subtitle: nil, image: nil, identifier: nil, discoverabilityTitle: nil, state: .off) { _ in
-                    
+
                     self?.presenter?.showEditAlert(item: item)
                 }
-                
+
                 let deleteAction = UIAction(title: "Delete", subtitle: nil, image: nil, identifier: nil, discoverabilityTitle: nil, attributes: .destructive, state: .off) { _ in
-                    
+
                     self?.presenter?.deleteItem(item: item)
                 }
-                
+
                 return UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: [showAction, editAction, deleteAction])
             }
-        
+
         return config
     }
 }
-

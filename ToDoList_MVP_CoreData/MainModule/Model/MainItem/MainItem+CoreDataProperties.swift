@@ -20,6 +20,4 @@ extension MainItem {
 
 }
 
-extension MainItem: Identifiable {
-
-}
+extension MainItem: Identifiable {}

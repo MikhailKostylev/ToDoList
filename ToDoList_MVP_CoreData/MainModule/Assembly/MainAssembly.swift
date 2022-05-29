@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 final class MainAssembly {
-    
+
     class func configureModule() -> UIViewController {
         let view = MainViewController()
         let presenter = MainViewPresenter(view: view)

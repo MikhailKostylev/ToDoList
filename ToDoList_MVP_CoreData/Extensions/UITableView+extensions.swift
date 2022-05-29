@@ -8,18 +8,16 @@
 import UIKit
 
 extension UITableView {
-    
-    // Animation
-    
+
     func animateTableView() {
         let cells = self.visibleCells
         let tableViewHight = self.bounds.height
-        
+
         var delay: Double = 0
-        
+
         for cell in cells {
             cell.transform = CGAffineTransform(translationX: 0, y: tableViewHight)
-            
+
             UIView.animate(
                 withDuration: 1,
                 delay: delay * 0.05,
@@ -28,7 +26,7 @@ extension UITableView {
                 options: .curveEaseInOut) {
                     cell.transform = CGAffineTransform.identity
                 }
-            
+
             delay += 1
         }
     }

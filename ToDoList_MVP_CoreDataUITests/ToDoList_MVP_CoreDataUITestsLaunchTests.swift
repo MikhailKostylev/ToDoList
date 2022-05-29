@@ -7,7 +7,7 @@
 
 import XCTest
 
-class ToDoList_MVP_CoreDataUITestsLaunchTests: XCTestCase {
+class ToDoListMVPCoreDataUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
