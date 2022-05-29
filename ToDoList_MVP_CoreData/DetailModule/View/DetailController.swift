@@ -2,20 +2,23 @@
 //  DetailController.swift
 //  ToDoList_MVP_CoreData
 //
-//  Created by Mikhail Kostylev on 27.05.2022.
+//  Created by Mikhail Kostylev on 29.05.2022.
 //
 
 import UIKit
 
-protocol DetailViewControllerProtocol: AnyObject {
+protocol DetailViewProtocol: AnyObject {
     func configure(with item: MainItem)
+    func didTapCloseButton()
 }
 
-final class DetailViewController: UIViewController, DetailViewControllerProtocol {
+final class DetailViewController: UIViewController, DetailViewProtocol {
+    
+    var presenter: DetailPresenterProtocol?
 
     // MARK: - UI elements
 
-    private let nameLabel: UILabel = {
+    let nameLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.textColor = .label
@@ -25,7 +28,7 @@ final class DetailViewController: UIViewController, DetailViewControllerProtocol
         return label
     }()
 
-    private let dateLabel: UILabel = {
+    let dateLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.textColor = .label
@@ -35,37 +38,29 @@ final class DetailViewController: UIViewController, DetailViewControllerProtocol
         return label
     }()
 
-    private let closeButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
-        button.tintColor = .secondaryLabel
-        button.layer.masksToBounds = true
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupVC()
         setupLabels()
         setupCloseButton()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupVC()
     }
 
     // MARK: - Setups
 
     private func setupVC() {
         view.backgroundColor = .secondarySystemBackground
-        navigationItem.largeTitleDisplayMode = .never
         navigationController?.navigationBar.tintColor = .label
-        navigationController?.navigationBar.prefersLargeTitles = false
     }
 
     private func setupLabels() {
         view.addSubview(nameLabel)
         view.addSubview(dateLabel)
-        view.addSubview(closeButton)
 
         NSLayoutConstraint.activate([
             nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -76,27 +71,25 @@ final class DetailViewController: UIViewController, DetailViewControllerProtocol
             dateLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             dateLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             dateLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
-            dateLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-
-            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-            closeButton.heightAnchor.constraint(equalToConstant: 50),
-            closeButton.widthAnchor.constraint(equalToConstant: 50)
+            dateLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-
+    
     private func setupCloseButton() {
-        closeButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .close,
+            target: self,
+            action: #selector(didTapCloseButton)
+        )
     }
-
-    @objc private func didTapCloseButton() {
-        dismiss(animated: true)
+    
+    @objc func didTapCloseButton() {
+        presenter?.backToRootVC()
     }
 
     // MARK: - Configure
 
     public func configure(with item: MainItem) {
-        nameLabel.text = item.taskName
-        dateLabel.text = item.createdAt?.toString()
+        presenter?.setupLabels(with: item)
     }
 }

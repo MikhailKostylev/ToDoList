@@ -20,12 +20,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private func setupWindow(scene: UIScene) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-
-        let mainVC = MainAssembly.configureModule()
-        let navController = UINavigationController(rootViewController: mainVC)
-
+        
+        let assembly = Assembly()
+        let navigationController = UINavigationController()
+        let router = Router(navigationController: navigationController, assembly: assembly)
+        router.initialViewController()
+        
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = navController
+        window?.rootViewController = navigationController
         window?.backgroundColor = .systemBackground
         window?.makeKeyAndVisible()
     }

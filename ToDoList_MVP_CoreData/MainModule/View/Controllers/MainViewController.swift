@@ -7,16 +7,14 @@
 
 import UIKit
 
-protocol MainPresenterInput: AnyObject {
+protocol MainViewProtocol: AnyObject {
     func presentAlert(alert: UIAlertController)
-    func showDetailVC(item: MainItem)
     func refreshTable()
 }
 
-final class MainViewController: UIViewController, MainPresenterInput {
+final class MainViewController: UIViewController, MainViewProtocol {
 
-    var presenter: MainPresenterOutput?
-    var detailVC: DetailViewControllerProtocol?
+    var presenter: MainPresenterProtocol?
 
     private let tableView: UITableView = {
         let table = UITableView()
@@ -27,12 +25,15 @@ final class MainViewController: UIViewController, MainPresenterInput {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setupVC()
         setupTableView()
         setupBarButton()
         setupRefreshControl()
         presenter?.getAllItems()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupVC()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -71,6 +72,7 @@ final class MainViewController: UIViewController, MainPresenterInput {
         )
         tableView.separatorStyle = .none
         tableView.rowHeight = 100
+        tableView.sectionIndexColor = .secondaryLabel
     }
 
     private func setupBarButton() {
@@ -99,13 +101,7 @@ final class MainViewController: UIViewController, MainPresenterInput {
     @objc private func didPullToRefresh() {
         presenter?.getAllItems()
     }
-
-    func showDetailVC(item: MainItem) {
-        guard let detailVC = detailVC else { return }
-        detailVC.configure(with: item)
-        present(detailVC as! UIViewController, animated: true)
-    }
-
+    
     func presentAlert(alert: UIAlertController) {
         present(alert, animated: true)
     }
@@ -147,7 +143,16 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return presenter?.items?.compactMap({ $0.taskName?.prefix(1).capitalized })
+        let alphabet = "abcdefghijklmnopqrstuvwxyz"
+        return Array(alphabet.uppercased()).compactMap({ "\($0)" })
+    }
+    
+    func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        guard let targetIndex = presenter?.items?.firstIndex(where: { $0.taskName?.prefix(1).capitalized == title }) else {
+            return 0
+        }
+        
+        return targetIndex
     }
 
     // Selection
@@ -159,14 +164,14 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        guard let item = presenter?.items?[indexPath.row] else { return UIContextMenuConfiguration() }
+        guard let item = presenter?.items?[indexPath.section] else { return UIContextMenuConfiguration() }
         let config = UIContextMenuConfiguration(
             identifier: nil,
             previewProvider: nil) { [weak self] _ in
 
                 let showAction = UIAction(title: "Show Full", subtitle: nil, image: nil, identifier: nil, discoverabilityTitle: nil, state: .off) { _ in
 
-                    self?.showDetailVC(item: item)
+                    self?.presenter?.showDetailVC(item: item)
                 }
 
                 let editAction = UIAction(title: "Edit", subtitle: nil, image: nil, identifier: nil, discoverabilityTitle: nil, state: .off) { _ in
