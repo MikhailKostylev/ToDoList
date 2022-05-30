@@ -9,7 +9,7 @@ import Foundation
 
 protocol DetailPresenterProtocol: AnyObject {
     init(view: DetailViewProtocol, item: MainItem, router: RouterProtocol)
-    func setupLabels()
+    func configureLabels()
     func backToRootVC()
 }
 
@@ -25,7 +25,8 @@ final class DetailViewPresenter: DetailPresenterProtocol {
         self.item = item
     }
     
-    public func setupLabels() {
+    public func configureLabels() {
+        guard let item = item else { return }
         view?.configure(with: item)
     }
     

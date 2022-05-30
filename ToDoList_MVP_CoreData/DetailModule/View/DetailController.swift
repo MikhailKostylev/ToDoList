@@ -44,7 +44,7 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
         super.viewDidLoad()
         setupLabels()
         setupCloseButton()
-        presenter?.setupLabels()
+        presenter?.configureLabels()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,7 +67,7 @@ final class DetailViewController: UIViewController, DetailViewProtocol {
             nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             nameLabel.topAnchor.constraint(equalTo: view.topAnchor),
-            nameLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            nameLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.8),
 
             dateLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             dateLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),

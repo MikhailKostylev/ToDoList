@@ -15,7 +15,7 @@ class MockView: MainViewProtocol {
     func refreshTable() {}
 }
 
-class MockStoreService: StoreServiceProtocol {
+class MockStoreManager: StoreManagerProtocol {
     
     var items: [MainItem]?
     
@@ -39,7 +39,7 @@ class MainPresenterTests: XCTestCase {
     
     var view: MockView!
     var presenter: MainPresenterProtocol!
-    var storeService: StoreServiceProtocol!
+    var storeManager: StoreManagerProtocol!
     var router: RouterProtocol!
     var items = [MainItem]()
 
@@ -51,7 +51,7 @@ class MainPresenterTests: XCTestCase {
 
     override func tearDownWithError() throws {
         view = nil
-        storeService = nil
+        storeManager = nil
         presenter = nil
         router = nil
     }
@@ -61,8 +61,8 @@ class MainPresenterTests: XCTestCase {
         items.append(item)
         
         view = MockView()
-        storeService = MockStoreService(items: items)
-        presenter = MainPresenter(view: view, storeService: storeService, router: router)
+        storeManager = MockStoreManager(items: items)
+        presenter = MainPresenter(view: view, storeManager: storeManager, router: router)
         
         var catchItems: [MainItem]?
         

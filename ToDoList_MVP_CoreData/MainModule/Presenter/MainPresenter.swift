@@ -10,7 +10,7 @@ import UIKit
 
 protocol MainPresenterProtocol: AnyObject {
     var items: [MainItem]? { get set }
-    init(view: MainViewProtocol, storeService: StoreServiceProtocol, router: RouterProtocol)
+    init(view: MainViewProtocol, storeManager: StoreManagerProtocol, router: RouterProtocol)
     func getAllItems()
     func createItem(name: String)
     func deleteItem(item: MainItem)
@@ -24,15 +24,15 @@ protocol MainPresenterProtocol: AnyObject {
 final class MainPresenter: MainPresenterProtocol {
     
     weak var view: MainViewProtocol!
-    var storeService: StoreServiceProtocol!
+    var storeManager: StoreManagerProtocol!
     var router: RouterProtocol?
     var items: [MainItem]?
     
     // MARK: - Initializer
     
-    required init(view: MainViewProtocol, storeService: StoreServiceProtocol, router: RouterProtocol) {
+    required init(view: MainViewProtocol, storeManager: StoreManagerProtocol, router: RouterProtocol) {
         self.view = view
-        self.storeService = storeService
+        self.storeManager = storeManager
         self.router = router
         getAllItems()
     }
@@ -43,29 +43,29 @@ final class MainPresenter: MainPresenterProtocol {
         router?.showDetailVC(with: item)
     }
     
-    // MARK: - Store Service
+    // MARK: - Store Manager
     
     func getAllItems() {
-        storeService.getAllItems()
-        items = storeService.items
+        storeManager.getAllItems()
+        items = storeManager.items
         view.refreshTable()
     }
     
     func deleteItem(item: MainItem) {
-        storeService.deleteItem(item: item)
-        items = storeService.items
+        storeManager.deleteItem(item: item)
+        items = storeManager.items
         view.refreshTable()
     }
     
     func createItem(name: String) {
-        storeService.createItem(name: name)
-        items = storeService.items
+        storeManager.createItem(name: name)
+        items = storeManager.items
         view.refreshTable()
     }
     
     func updateItem(item: MainItem, newName: String) {
-        storeService.updateItem(item: item, newName: newName)
-        items = storeService.items
+        storeManager.updateItem(item: item, newName: newName)
+        items = storeManager.items
         view.refreshTable()
     }
     

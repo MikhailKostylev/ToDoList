@@ -66,13 +66,14 @@ final class MainViewController: UIViewController, MainViewProtocol {
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
+        tableView.sectionIndexColor = .secondaryLabel
+        tableView.rowHeight = Constants.tableHeightForRow
         tableView.register(
             MainTableViewCell.self,
             forCellReuseIdentifier: MainTableViewCell.identifier
         )
-        tableView.separatorStyle = .none
-        tableView.rowHeight = 100
-        tableView.sectionIndexColor = .secondaryLabel
+        
     }
 
     private func setupBarButton() {
@@ -119,8 +120,7 @@ final class MainViewController: UIViewController, MainViewProtocol {
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
-    // Default
-
+    /// Default methods
     func numberOfSections(in tableView: UITableView) -> Int {
         return presenter?.items?.count ?? 0
     }
@@ -131,32 +131,12 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell( withIdentifier: MainTableViewCell.identifier, for: indexPath) as? MainTableViewCell else { return UITableViewCell() }
-        guard let model = presenter?.items?[indexPath.section] else { return UITableViewCell() }
-        cell.configure(with: model)
+        guard let item = presenter?.items?[indexPath.section] else { return UITableViewCell() }
+        cell.configure(with: item)
         return cell
     }
-
-    // Index Titles
-
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return presenter?.items?[section].taskName?.prefix(1).capitalized
-    }
-
-    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        let alphabet = "abcdefghijklmnopqrstuvwxyz"
-        return Array(alphabet.uppercased()).compactMap({ "\($0)" })
-    }
     
-    func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
-        guard let targetIndex = presenter?.items?.firstIndex(where: { $0.taskName?.prefix(1).capitalized == title }) else {
-            return 0
-        }
-        
-        return targetIndex
-    }
-
-    // Selection
-
+    /// Selection methods
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let item = presenter?.items?[indexPath.section] else { return }
@@ -188,5 +168,23 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             }
 
         return config
+    }
+    
+    /// Index Titles methods
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return presenter?.items?[section].taskName?.prefix(1).capitalized
+    }
+
+    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        let alphabet = Constants.alphabet
+        return Array(alphabet.uppercased()).compactMap({ "\($0)" })
+    }
+    
+    func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        guard let targetIndex = presenter?.items?.firstIndex(where: { $0.taskName?.prefix(1).capitalized == title }) else {
+            return 0
+        }
+        
+        return targetIndex
     }
 }

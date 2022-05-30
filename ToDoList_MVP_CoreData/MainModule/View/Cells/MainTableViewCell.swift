@@ -10,6 +10,7 @@ import UIKit
 final class MainTableViewCell: UITableViewCell {
 
     static let identifier = "MainTableViewCell"
+    private let padding = Constants.cellContentViewPadding
 
     // MARK: - UI elements
 
@@ -33,8 +34,6 @@ final class MainTableViewCell: UITableViewCell {
         return label
     }()
 
-    private let padding: CGFloat = 10
-
     // MARK: - Initializer
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -48,13 +47,13 @@ final class MainTableViewCell: UITableViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        setupCellLayout()
+        setupContentView()
     }
 
     // MARK: - Setups
 
-    private func setupCellLayout() {
-        contentView.layer.cornerRadius = 10
+    private func setupContentView() {
+        contentView.layer.cornerRadius = Constants.cellContentViewCornerRadius
         contentView.frame = contentView.frame.inset(
             by: UIEdgeInsets(
                 top: padding,
@@ -83,11 +82,11 @@ final class MainTableViewCell: UITableViewCell {
             dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
-
+    
     // MARK: - Configure
 
-    func configure(with model: MainItem) {
-        nameLabel.text = model.taskName
-        dateLabel.text = "Created at: \(model.createdAt?.toString() ?? "")"
+    func configure(with item: MainItem) {
+        nameLabel.text = item.taskName
+        dateLabel.text = item.createdAt?.toString() 
     }
 }

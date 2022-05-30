@@ -1,5 +1,5 @@
 //
-//  StoreService.swift
+//  StoreManager.swift
 //  ToDoList_MVP_CoreData
 //
 //  Created by Mikhail Kostylev on 29.05.2022.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol StoreServiceProtocol: AnyObject {
+protocol StoreManagerProtocol: AnyObject {
     func getAllItems()
     func createItem(name: String)
     func deleteItem(item: MainItem)
@@ -15,13 +15,8 @@ protocol StoreServiceProtocol: AnyObject {
     var items: [MainItem]? { get set }
 }
 
-enum StorageError: Error {
-    case failedToGetData
-}
-
-class StoreService: StoreServiceProtocol {
+class StoreManager: StoreManagerProtocol {
     
-    var completion: (([MainItem]?) -> Void)?
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var items: [MainItem]?
     

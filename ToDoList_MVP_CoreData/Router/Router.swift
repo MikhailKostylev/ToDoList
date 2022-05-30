@@ -7,12 +7,12 @@
 
 import UIKit
 
-protocol HeadRouter {
+protocol MajorRouter {
     var navigationController: UINavigationController? { get set }
     var assembly: AssemblyProtocol? { get set }
 }
 
-protocol RouterProtocol: HeadRouter {
+protocol RouterProtocol: MajorRouter {
     func initialViewController()
     func showDetailVC(with item: MainItem)
     func popToRoot()
