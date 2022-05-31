@@ -354,8 +354,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1F5C485228411B2F00C024E0 /* Build configuration list for PBXNativeTarget "ToDoList_MVP_CoreData" */;
 			buildPhases = (
-				1FA5973A28436F67009E31C9 /* ShellScript */,
 				057046627A36E920A1E28614 /* [CP] Check Pods Manifest.lock */,
+				1FA5973A28436F67009E31C9 /* ShellScript */,
 				1F5C482128411B2E00C024E0 /* Sources */,
 				1F5C482228411B2E00C024E0 /* Frameworks */,
 				1F5C482328411B2E00C024E0 /* Resources */,
