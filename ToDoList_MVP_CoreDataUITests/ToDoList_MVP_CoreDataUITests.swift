@@ -41,12 +41,11 @@ class ToDoListMVPCoreDataUITests: XCTestCase {
         app.launch()
         
         app.navigationBars["To Do List"].buttons["Add"].tap()
-        
         let elementsQuery = app.alerts["New Task"].scrollViews.otherElements
+        
         elementsQuery.collectionViews.cells.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 1).children(matching: .textField).element.typeText("Foo")
-        
         app.alerts["New Task"].scrollViews.otherElements.buttons["Enter"].tap()
-        
+    
         let tablesQuery = app.tables
         let fooStaticText = tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["Foo"]/*[[".cells.staticTexts[\"Foo\"]",".staticTexts[\"Foo\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
         
@@ -54,7 +53,6 @@ class ToDoListMVPCoreDataUITests: XCTestCase {
     }
     
     func testDeleteItem() throws {
-        
         let app = XCUIApplication()
         app.launch()
         

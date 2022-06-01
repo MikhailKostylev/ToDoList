@@ -33,6 +33,7 @@ class RouterTest: XCTestCase {
 
     func testExample() throws {
         let item = MainItem()
+        
         router.showDetailVC(with: item)
         let detailVC = navigationController.presentedVC
         

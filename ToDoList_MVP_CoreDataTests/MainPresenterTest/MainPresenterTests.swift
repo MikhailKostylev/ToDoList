@@ -65,7 +65,6 @@ class MainPresenterTests: XCTestCase {
         presenter = MainPresenter(view: view, storeManager: storeManager, router: router)
         
         var catchItems: [MainItem]?
-        
         catchItems = presenter.items
         
         XCTAssertNotEqual(catchItems?.count, 0)
