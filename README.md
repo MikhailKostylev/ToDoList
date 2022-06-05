@@ -2,11 +2,16 @@
 
 ## MVP completely covered by Protocols with Router and Tests
 
-# A Test ToDoList App
-# Used:
+# ✏️ A Test App for junior position
+
+## 📌 Used: 
 - Clean MVP with Protocols and Router
-- CoreData and Tests
+- CoreData
+- Unit and UI tests
 - Fully programmatically (no storyboards)
 
-https://user-images.githubusercontent.com/100859587/170841016-43df4ac9-04ec-42d0-9ee1-aa3d57592e83.mp4
+![imgonline-com-ua-2to1-b3LYUdnaR9FmHB](https://user-images.githubusercontent.com/100859587/172074389-f60f5ebc-b337-4086-8656-78d5c50fb70d.jpg)
 
+![imgonline-com-ua-2to1-hoWyL3ZpacWod6Q](https://user-images.githubusercontent.com/100859587/172074393-33486335-2da4-4865-832f-fe0d86f02512.jpg)
+
+https://user-images.githubusercontent.com/100859587/170841016-43df4ac9-04ec-42d0-9ee1-aa3d57592e83.mp4
