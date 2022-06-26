@@ -2,7 +2,7 @@
 
 ## MVP completely covered by Protocols with Router and Tests
 
-# ✏️ A Test App for junior position
+# ✏️ A Test App
 
 ## 📌 Used: 
 - Clean MVP with Protocols and Router
