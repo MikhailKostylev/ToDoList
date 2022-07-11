@@ -1,6 +1,6 @@
 # ToDoList
 
-## MVP completely covered by Protocols with Router and Tests
+## A simple example of ToDoList app using CoreData, MVP covered by protocols with Router and Tests 🗒✅
 
 # ✏️ A Test App
 
